@@ -90,7 +90,7 @@ struct MenuOption {
   static MenuOption VerticalAnimated();
   static MenuOption Toggle();
 
-  ConstStringListRef entries;  ///> The list of entries.
+  std::variant<ConstStringListRef,std::vector<std::string*>*> entries;  ///> The list of entries.
   Ref<int> selected = 0;       ///> The index of the selected entry.
 
   // Style:

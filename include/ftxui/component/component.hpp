@@ -76,6 +76,7 @@ Component Dropdown(ConstStringListRef entries, int* selected);
 Component Dropdown(DropdownOption options);
 
 Component Toggle(ConstStringListRef entries, int* selected);
+Component Toggle(std::vector<std::string*>* entries, int* selected);
 
 // General slider constructor:
 template <typename T>

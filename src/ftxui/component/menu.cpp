@@ -123,7 +123,7 @@ class MenuBase : public ComponentBase, public MenuOption {
       const bool is_selected = (selected() == i);
 
       const EntryState state = {
-          entries[i], false, is_selected, is_focused, i,
+          std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries)[i]:*(*get<std::vector<std::string*>*>(entries))[i], false, is_selected, is_focused, i,
       };
 
       auto focus_management = (selected_focus_ != i) ? nothing
@@ -442,8 +442,8 @@ class MenuBase : public ComponentBase, public MenuOption {
     }
   }
 
-  bool Focusable() const final { return entries.size(); }
-  int size() const { return int(entries.size()); }
+  bool Focusable() const final { return std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries).size():get<std::vector<std::string*>*>(entries)->size(); }
+  int size() const { return std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries).size():get<std::vector<std::string*>*>(entries)->size(); }
   float FirstTarget() {
     if (boxes_.empty()) {
       return 0.F;
@@ -553,6 +553,18 @@ Component Menu(ConstStringListRef entries, int* selected, MenuOption option) {
 /// @ingroup component
 Component Toggle(ConstStringListRef entries, int* selected) {
   return Menu(std::move(entries), selected, MenuOption::Toggle());
+}
+
+/// @brief An horizontal list of elements. The user can navigate through them.
+/// @param entries The list of selectable entries to display.
+/// @param selected Reference the selected entry.
+/// See also |Menu|.
+/// @ingroup component
+Component Toggle(std::vector<std::string*>* entries, int* selected) {
+  auto option = MenuOption::Toggle();
+  option.entries = std::move(entries);
+  option.selected = selected;
+  return Menu(option);
 }
 
 /// @brief A specific menu entry. They can be put into a Container::Vertical to
