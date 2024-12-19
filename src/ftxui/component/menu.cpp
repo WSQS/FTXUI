@@ -123,7 +123,7 @@ class MenuBase : public ComponentBase, public MenuOption {
       const bool is_selected = (selected() == i);
 
       const EntryState state = {
-          std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries)[i]:*(*get<std::vector<std::string*>*>(entries))[i], false, is_selected, is_focused, i,
+          std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries)[i]:*(*std::get<std::vector<std::string*>*>(entries))[i], false, is_selected, is_focused, i,
       };
 
       auto focus_management = (selected_focus_ != i) ? nothing
@@ -442,8 +442,8 @@ class MenuBase : public ComponentBase, public MenuOption {
     }
   }
 
-  bool Focusable() const final { return std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries).size():get<std::vector<std::string*>*>(entries)->size(); }
-  int size() const { return std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries).size():get<std::vector<std::string*>*>(entries)->size(); }
+  bool Focusable() const final { return std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries).size():std::get<std::vector<std::string*>*>(entries)->size(); }
+  int size() const { return std::holds_alternative<ConstStringListRef>(entries)?std::get<ConstStringListRef>(entries).size():std::get<std::vector<std::string*>*>(entries)->size(); }
   float FirstTarget() {
     if (boxes_.empty()) {
       return 0.F;
