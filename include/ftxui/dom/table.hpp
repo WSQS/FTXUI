@@ -71,15 +71,15 @@ class TableSelection {
   void DecorateCellsAlternateColumn(Decorator, int modulo = 2, int shift = 0);
   void DecorateCellsAlternateRow(Decorator, int modulo = 2, int shift = 0);
 
-  void Border(BorderStyle border = LIGHT);
-  void BorderLeft(BorderStyle border = LIGHT);
-  void BorderRight(BorderStyle border = LIGHT);
-  void BorderTop(BorderStyle border = LIGHT);
-  void BorderBottom(BorderStyle border = LIGHT);
+  void Border(BorderStyle border = BorderStyle::LIGHT);
+  void BorderLeft(BorderStyle border = BorderStyle::LIGHT);
+  void BorderRight(BorderStyle border = BorderStyle::LIGHT);
+  void BorderTop(BorderStyle border = BorderStyle::LIGHT);
+  void BorderBottom(BorderStyle border = BorderStyle::LIGHT);
 
-  void Separator(BorderStyle border = LIGHT);
-  void SeparatorVertical(BorderStyle border = LIGHT);
-  void SeparatorHorizontal(BorderStyle border = LIGHT);
+  void Separator(BorderStyle border = BorderStyle::LIGHT);
+  void SeparatorVertical(BorderStyle border = BorderStyle::LIGHT);
+  void SeparatorHorizontal(BorderStyle border = BorderStyle::LIGHT);
 
  private:
   friend Table;

@@ -24,7 +24,7 @@ using Elements = std::vector<Element>;
 using Decorator = std::function<Element(Element)>;
 using GraphFunction = std::function<std::vector<int>(int, int)>;
 
-enum BorderStyle {
+enum class BorderStyle : unsigned char {
   LIGHT,
   DASHED,
   HEAVY,
@@ -79,7 +79,7 @@ Decorator borderStyled(BorderStyle);
 Decorator borderStyled(BorderStyle, Color);
 Decorator borderStyled(Color);
 Decorator borderWith(const Pixel&);
-Element window(Element title, Element content, BorderStyle border = ROUNDED);
+Element window(Element title, Element content, BorderStyle border = BorderStyle::ROUNDED);
 Element spinner(int charset_index, size_t image_index);
 Element paragraph(const std::string& text);
 Element paragraphAlignLeft(const std::string& text);

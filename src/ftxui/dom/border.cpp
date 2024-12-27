@@ -38,7 +38,7 @@ class Border : public Node {
          BorderStyle style,
          std::optional<Color> foreground_color = std::nullopt)
       : Node(std::move(children)),
-        charset_(simple_border_charset[style])  // NOLINT
+        charset_(simple_border_charset[static_cast<uint8_t>(style)])  // NOLINT
         ,
         foreground_color_(foreground_color) {}  // NOLINT
 
@@ -226,7 +226,7 @@ class BorderPixel : public Node {
 /// └───────────┘
 /// ```
 Element border(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), ROUNDED);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::ROUNDED);
 }
 
 /// @brief Same as border but with a constant Pixel around the element.
@@ -252,7 +252,7 @@ Decorator borderStyled(BorderStyle style) {
 /// @see border
 Decorator borderStyled(Color foreground_color) {
   return [foreground_color](Element child) {
-    return std::make_shared<Border>(unpack(std::move(child)), ROUNDED,
+    return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::ROUNDED,
                                     foreground_color);
   };
 }
@@ -299,7 +299,7 @@ Decorator borderStyled(BorderStyle style, Color foreground_color) {
 /// ┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍┛
 /// ```
 Element borderDashed(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), DASHED);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::DASHED);
 }
 
 /// @brief Draw a light border around the element.
@@ -334,7 +334,7 @@ Element borderDashed(Element child) {
 /// └──────────────┘
 /// ```
 Element borderLight(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), LIGHT);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::LIGHT);
 }
 
 /// @brief Draw a heavy border around the element.
@@ -369,7 +369,7 @@ Element borderLight(Element child) {
 /// ┗━━━━━━━━━━━━━━┛
 /// ```
 Element borderHeavy(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), HEAVY);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::HEAVY);
 }
 
 /// @brief Draw a double border around the element.
@@ -404,7 +404,7 @@ Element borderHeavy(Element child) {
 /// ╚══════════════╝
 /// ```
 Element borderDouble(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), DOUBLE);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::DOUBLE);
 }
 
 /// @brief Draw a rounded border around the element.
@@ -439,7 +439,7 @@ Element borderDouble(Element child) {
 /// ╰──────────────╯
 /// ```
 Element borderRounded(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), ROUNDED);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::ROUNDED);
 }
 
 /// @brief Draw an empty border around the element.
@@ -474,7 +474,7 @@ Element borderRounded(Element child) {
 ///
 /// ```
 Element borderEmpty(Element child) {
-  return std::make_shared<Border>(unpack(std::move(child)), EMPTY);
+  return std::make_shared<Border>(unpack(std::move(child)), BorderStyle::EMPTY);
 }
 
 /// @brief Draw window with a title and a border around the element.

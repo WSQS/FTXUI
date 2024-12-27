@@ -65,7 +65,7 @@ class SeparatorAuto : public Node {
     const bool is_line = (box_.y_min == box_.y_max);
 
     const std::string c =
-        charsets[style_][int(is_line && !is_column)];  // NOLINT
+        charsets[static_cast<uint8_t>(style_)][int(is_line && !is_column)];  // NOLINT
 
     for (int y = box_.y_min; y <= box_.y_max; ++y) {
       for (int x = box_.x_min; x <= box_.x_max; ++x) {
@@ -82,7 +82,7 @@ class SeparatorAuto : public Node {
 class SeparatorWithPixel : public SeparatorAuto {
  public:
   explicit SeparatorWithPixel(Pixel pixel)
-      : SeparatorAuto(LIGHT), pixel_(std::move(pixel)) {
+      : SeparatorAuto(BorderStyle::LIGHT), pixel_(std::move(pixel)) {
     pixel_.automerge = true;
   }
   void Render(Screen& screen) override {
@@ -132,7 +132,7 @@ class SeparatorWithPixel : public SeparatorAuto {
 /// down
 /// ```
 Element separator() {
-  return std::make_shared<SeparatorAuto>(LIGHT);
+  return std::make_shared<SeparatorAuto>(BorderStyle::LIGHT);
 }
 
 /// @brief Draw a vertical or horizontal separation in between two other
@@ -207,7 +207,7 @@ Element separatorStyled(BorderStyle style) {
 /// down
 /// ```
 Element separatorLight() {
-  return std::make_shared<SeparatorAuto>(LIGHT);
+  return std::make_shared<SeparatorAuto>(BorderStyle::LIGHT);
 }
 
 /// @brief Draw a vertical or horizontal separation in between two other
@@ -244,7 +244,7 @@ Element separatorLight() {
 /// down
 /// ```
 Element separatorDashed() {
-  return std::make_shared<SeparatorAuto>(DASHED);
+  return std::make_shared<SeparatorAuto>(BorderStyle::DASHED);
 }
 
 /// @brief Draw a vertical or horizontal separation in between two other
@@ -281,7 +281,7 @@ Element separatorDashed() {
 /// down
 /// ```
 Element separatorHeavy() {
-  return std::make_shared<SeparatorAuto>(HEAVY);
+  return std::make_shared<SeparatorAuto>(BorderStyle::HEAVY);
 }
 
 /// @brief Draw a vertical or horizontal separation in between two other
@@ -318,7 +318,7 @@ Element separatorHeavy() {
 /// down
 /// ```
 Element separatorDouble() {
-  return std::make_shared<SeparatorAuto>(DOUBLE);
+  return std::make_shared<SeparatorAuto>(BorderStyle::DOUBLE);
 }
 
 /// @brief Draw a vertical or horizontal separation in between two other
@@ -355,7 +355,7 @@ Element separatorDouble() {
 /// down
 /// ```
 Element separatorEmpty() {
-  return std::make_shared<SeparatorAuto>(EMPTY);
+  return std::make_shared<SeparatorAuto>(BorderStyle::EMPTY);
 }
 
 /// @brief Draw a vertical or horizontal separation in between two other
